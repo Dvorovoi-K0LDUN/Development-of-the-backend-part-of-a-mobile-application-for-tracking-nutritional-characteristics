@@ -1,0 +1,104 @@
+import { GoalService } from './goal.service';
+import { CreateGoalDto } from '../auth/dto/create-goal.dto';
+export declare class GoalController {
+    private readonly goalService;
+    constructor(goalService: GoalService);
+    create(userId: string, dto: CreateGoalDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        targetCalories: number;
+        targetProteins: number;
+        targetFats: number;
+        targetCarbs: number;
+        targetWaterIntake: number;
+        targetBreadUnits: number;
+        currentWeight: number;
+        targetWeight: number;
+        activityLevel: string | null;
+        startDate: Date;
+        endDate: Date | null;
+    }>;
+    findAll(userId: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        targetCalories: number;
+        targetProteins: number;
+        targetFats: number;
+        targetCarbs: number;
+        targetWaterIntake: number;
+        targetBreadUnits: number;
+        currentWeight: number;
+        targetWeight: number;
+        activityLevel: string | null;
+        startDate: Date;
+        endDate: Date | null;
+    }[]>;
+    findOne(id: string, userId: string): Promise<{
+        user: {
+            email: string;
+            password: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            avatarPath: string;
+            phone: string;
+            waterIntakeGoal: number;
+            currentWaterIntake: number;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        targetCalories: number;
+        targetProteins: number;
+        targetFats: number;
+        targetCarbs: number;
+        targetWaterIntake: number;
+        targetBreadUnits: number;
+        currentWeight: number;
+        targetWeight: number;
+        activityLevel: string | null;
+        startDate: Date;
+        endDate: Date | null;
+    }>;
+    update(id: string, userId: string, dto: CreateGoalDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        targetCalories: number;
+        targetProteins: number;
+        targetFats: number;
+        targetCarbs: number;
+        targetWaterIntake: number;
+        targetBreadUnits: number;
+        currentWeight: number;
+        targetWeight: number;
+        activityLevel: string | null;
+        startDate: Date;
+        endDate: Date | null;
+    }>;
+    remove(id: string, userId: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        targetCalories: number;
+        targetProteins: number;
+        targetFats: number;
+        targetCarbs: number;
+        targetWaterIntake: number;
+        targetBreadUnits: number;
+        currentWeight: number;
+        targetWeight: number;
+        activityLevel: string | null;
+        startDate: Date;
+        endDate: Date | null;
+    }>;
+}

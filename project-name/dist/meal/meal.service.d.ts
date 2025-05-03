@@ -1,0 +1,82 @@
+import { PrismaService } from 'src/prisma.service';
+import { CreateMealDto } from '../auth/dto/create-meal.dto';
+import { UpdateMealDto } from '../auth/dto/update-meal.dto';
+export declare class MealService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    create(userId: string, dto: CreateMealDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        calories: number;
+        proteins: number;
+        fats: number;
+        carbs: number;
+        glycemicIndex: number | null;
+        glycemicLoad: number | null;
+        breadUnits: number | null;
+        isPublic: boolean;
+        userId: string;
+    }>;
+    findAll(userId: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        calories: number;
+        proteins: number;
+        fats: number;
+        carbs: number;
+        glycemicIndex: number | null;
+        glycemicLoad: number | null;
+        breadUnits: number | null;
+        isPublic: boolean;
+        userId: string;
+    }[]>;
+    findOne(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        calories: number;
+        proteins: number;
+        fats: number;
+        carbs: number;
+        glycemicIndex: number | null;
+        glycemicLoad: number | null;
+        breadUnits: number | null;
+        isPublic: boolean;
+        userId: string;
+    }>;
+    update(id: string, dto: UpdateMealDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        calories: number;
+        proteins: number;
+        fats: number;
+        carbs: number;
+        glycemicIndex: number | null;
+        glycemicLoad: number | null;
+        breadUnits: number | null;
+        isPublic: boolean;
+        userId: string;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        calories: number;
+        proteins: number;
+        fats: number;
+        carbs: number;
+        glycemicIndex: number | null;
+        glycemicLoad: number | null;
+        breadUnits: number | null;
+        isPublic: boolean;
+        userId: string;
+    }>;
+}

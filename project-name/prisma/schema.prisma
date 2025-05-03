@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid()) @map("id")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  email              String   @unique
+  password           String
+  name               String   @unique
+  avatarPath         String   @default("/uploads/default-avatar.png") @map("avatar_path")
+  phone              String   @default("")
+  waterIntakeGoal    Float    @default(0.0) @map("water_intake_goal")
+  currentWaterIntake Float    @default(0.0) @map("current_water_intake")
+
+  meals           Meal[]
+  mealLogs        MealLog[]
+  goals           Goal[]
+  waterIntakeLogs WaterIntakeLog[]
+}
+
+model Meal {
+  id            String   @id @default(cuid()) @map("id")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  userId        String
+  name          String
+  calories      Float
+  proteins      Float
+  fats          Float
+  carbs         Float
+  glycemicIndex Float? // ← важно!
+  glycemicLoad  Float?
+  breadUnits    Float?
+  isPublic      Boolean  @default(false)
+
+  user            User             @relation(fields: [userId], references: [id])
+  mealLogs        MealLog[]
+  mealIngredients MealIngredient[]
+  recipes         MealRecipe[]
+}
+
+model MealLog {
+  id            String   @id @default(cuid()) @map("id")
+  createdAt     DateTime @default(now()) @map("created_at")
+  userId        String
+  mealId        String
+  mealTime      DateTime
+  amount        Float
+  totalCalories Float
+  totalProteins Float
+  totalFats     Float
+  totalCarbs    Float
+  breadUnits    Float?
+  waterIntake   Float?
+
+  user User @relation(fields: [userId], references: [id])
+  meal Meal @relation(fields: [mealId], references: [id])
+}
+
+model Goal {
+  id                String    @id @default(cuid()) @map("id")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  userId            String
+  targetCalories    Float
+  targetProteins    Float
+  targetFats        Float
+  targetCarbs       Float
+  targetWaterIntake Float
+  targetBreadUnits  Float
+  currentWeight     Float
+  targetWeight      Float
+  activityLevel     String?
+  startDate         DateTime
+  endDate           DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model WaterIntakeLog {
+  id          String   @id @default(cuid()) @map("id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  userId      String
+  date        DateTime
+  waterIntake Float
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model MealIngredient {
+  id           String @id @default(cuid()) @map("id")
+  mealRecipeId String
+  productId    String
+  quantity     Float
+
+  mealRecipe MealRecipe @relation(fields: [mealRecipeId], references: [id])
+  product    Product    @relation(fields: [productId], references: [id])
+  Meal       Meal?      @relation(fields: [mealId], references: [id])
+  mealId     String?
+}
+
+model MealRecipe {
+  id           String  @id @default(cuid()) @map("id")
+  mealId       String
+  instructions String
+  cookingTime  Int
+  servings     Int
+  isPublic     Boolean @default(false)
+
+  meal           Meal             @relation(fields: [mealId], references: [id])
+  MealIngredient MealIngredient[]
+}
+
+model Product {
+  id             String           @id @default(cuid()) @map("id")
+  name           String
+  calories       Float
+  proteins       Float
+  fats           Float
+  carbs          Float
+  breadUnits     Float?
+  MealIngredient MealIngredient[]
+}
